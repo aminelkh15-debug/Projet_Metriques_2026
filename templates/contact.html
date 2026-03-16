@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Météo Paris</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .contact-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 200% 200%;
+            animation: gradient 10s ease infinite;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateY(-100%); }
+            100% { transform: rotate(45deg) translateY(100%); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .weather-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .form-section {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+            border-color: #764ba2;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .input-icon input {
+            padding-left: 45px;
+        }
+
+        .input-icon input:focus + i {
+            color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .info-item i {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .info-item h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .required::after {
+            content: ' *';
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 0.9em;
+        }
+
+        .note i {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .form-section {
+                padding: 30px 20px;
+            }
+            
+            .info-banner {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="contact-container">
+        <div class="header">
+            <div class="weather-icon">
+                <i class="fas fa-cloud-sun"></i>
+            </div>
+            <h1>Contactez-nous !</h1>
+            <p>Une question sur la météo à Paris ? Écrivez-nous !</p>
+        </div>
+
+        <div class="form-section">
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                Merci pour votre message ! (Démonstration - non enregistré)
+            </div>
+
+            <form id="contactForm" onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label class="required">Prénom</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Nom</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user-tag"></i>
+                        <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Email</label>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Message</label>
+                    <div class="input-icon" style="position: relative;">
+                        <i class="fas fa-pencil-alt" style="position: absolute; left: 15px; top: 15px;"></i>
+                        <textarea id="message" name="message" placeholder="Votre message..." style="padding-left: 45px;" required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
+                    Envoyer le message
+                </button>
+
+                <div class="note">
+                    <i class="fas fa-info-circle"></i>
+                    Note : Ce formulaire est une démonstration - les messages ne sont pas enregistrés (pas de base de données)
+                </div>
+            </form>
+        </div>
+
+        <div class="info-banner">
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h4>Paris</h4>
+                <p>Île-de-France</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-temperature-high"></i>
+                <h4>Météo</h4>
+                <p>Données en temps réel</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <h4>Disponible</h4>
+                <p>24h/24, 7j/7</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Récupération des valeurs
+            const prenom = document.getElementById('prenom').value;
+            const nom = document.getElementById('nom').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Affichage dans la console (pour démo)
+            console.log('=== NOUVEAU MESSAGE ===');
+            console.log('Prénom:', prenom);
+            console.log('Nom:', nom);
+            console.log('Email:', email);
+            console.log('Message:', message);
+            console.log('Date:', new Date().toLocaleString('fr-FR'));
+            console.log('=======================');
+            
+            // Afficher le message de succès
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            
+            // Réinitialiser le formulaire
+            document.getElementById('contactForm').reset();
+            
+            // Faire disparaître le message après 3 secondes
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+            
+            return false;
+        }
+    </script>
+</body>
+</html>

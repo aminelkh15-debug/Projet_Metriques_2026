@@ -1,6 +1,6 @@
 PYTHON := python3
 VENV   := .venv
-PIP    := $(VENV)/bin/pip
+PIP    := $(VENV)/bin/python -m pip
 FLASK  := $(VENV)/bin/flask
 
 APP    := app.py
@@ -20,6 +20,7 @@ help:
 
 venv:
 	@test -d $(VENV) || $(PYTHON) -m venv $(VENV)
+	@$(VENV)/bin/python -m ensurepip --upgrade >/dev/null 2>&1 || true
 	@$(PIP) --version >/dev/null
 
 install: venv
